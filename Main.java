@@ -26,23 +26,7 @@ public class Main
     */
     public static void main(String[] args)
     {
-
-
-        Composer comp = new Composer();
-        //Print.p(""+comp.createPiece().size());
-        //Print.p(""+comp.createPiece().size());
-        // Piece piece = comp.createPiece();
-        Generation gen = new Generation(comp);
-        gen.advance();
-        Piece piece = gen.getBestPiece();
-        Print.p("------------------BEST PIECE------------------------");
-        Print.p("Score: "+piece.getScore());
-        piece.Print();
-        Print.p("----------------------------------------------------");
-
-        MusicPlayer mp = new MusicPlayer(30);
-        mp.Play(piece);
-
+        GeneticAlgorithm ga = new GeneticAlgorithm();
     }
 
 }

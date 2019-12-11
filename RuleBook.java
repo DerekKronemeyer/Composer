@@ -54,4 +54,16 @@ public class RuleBook
         }
         return score;
     }
+
+    public static int finality(Piece piece)
+    {
+        if(piece.lastBar().size() == 1)
+        {
+            return 100;
+        }
+        else
+        {
+            return 0;
+        }
+    }
 }
