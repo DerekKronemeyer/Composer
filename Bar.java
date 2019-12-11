@@ -45,13 +45,17 @@ public class Bar
         return notes.size();
     }
 
+    public Note lastNote()
+    {
+        return notes.get(notes.size()-1);
+    }
+
     public void Print()
     {
         for(int i=0; i<notes.size(); i++)
         {
             notes.get(i).Print();
         }
-        
     }
 
 }

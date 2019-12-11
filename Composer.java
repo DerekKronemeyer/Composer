@@ -3,18 +3,18 @@ import java.util.ArrayList;
 
 public class Composer
 {
-    private Piece piece;
     private int minPitch;
     private int maxPitch;
     private int minDuration;
     private int maxDuration;
     private int barDuration;
+    private int numberOfBars;
 
     public Composer()
     {
-        piece = new Piece();
-        this.minPitch = 58;
-        this.maxPitch = 77;
+        this.numberOfBars = 16;
+        this.minPitch = 58;//B flat 3
+        this.maxPitch = 77;//F 5
         this.minDuration = 1;
         this.maxDuration = 4;
         this.barDuration = 4;
@@ -22,7 +22,9 @@ public class Composer
 
     public Piece createPiece()
     {
-        for(int i=0; i<4; i++)
+        Piece piece = new Piece();
+        //Print.p("number of bars: "+numberOfBars);
+        for(int i=0; i<numberOfBars; i++)
         {
             Bar bar = new Bar(barDuration);
             while(!bar.isFull())
