@@ -1,4 +1,5 @@
 import java.lang.*;
+import java.util.*;
 
 public class RuleBook
 {
@@ -41,6 +42,19 @@ public class RuleBook
         return score;
     }
 
+    public static int noBigJumps(Piece piece)
+    {
+        int score = 0;
+        for(int i=1; i<piece.numberOfNotes(); i++)
+        {
+            int pitch1 = piece.getNote(i).getPitch();
+            int pitch2 = piece.getNote(i-1).getPitch();
+
+            if(Math.abs(pitch1-pitch2) <= 8){score = score + 20;}
+        }
+        return score;
+    }
+
     public static int contourEnforcement(Piece piece)
     {
         int score = 0;
@@ -65,5 +79,69 @@ public class RuleBook
         {
             return 0;
         }
+    }
+
+    public static int keySignatureEnforcement(Piece piece)
+    {
+        int score = 0;
+        Note tonic = piece.getBar(0).getNote(0);
+        KeySignature ks = new KeySignature(tonic);
+        for(int i=0; i<piece.numberOfNotes(); i++)
+        {
+            if(ks.isMajor(piece.getNote(i)))
+                score = score + 5;
+        }
+        return score;
+    }
+
+    public static int similarBarStructure(Piece piece)
+    {
+        int score = 0;
+        ArrayList<String> structures = new ArrayList<String>();
+        for(int i=0; i<piece.size(); i++)
+        {
+            structures.add(piece.getBar(i).getStructure());
+        }
+        Collections.sort(structures);
+        for(int i=1; i<structures.size(); i++)
+        {
+            if(structures.get(i).equals(structures.get(i-1)))
+            {
+                score = score + 5;
+            }
+        }
+        return score;
+    }
+
+    public static int noteDuration(Piece piece)
+    {
+        int score = 0;
+        double[] preferences = {0.0, 12.0, 6.0, 4.0, 3.0};//expected ratio of notes of index duration
+        double expectedTotal = 0;
+        for(int i=0; i<5; i++)
+        {
+            expectedTotal = expectedTotal + preferences[i];
+        }
+
+        // calculate expected number of notes by duration based on preferences
+        int[] expected = new int[5];//this is what we are looking for!
+        for(int i=0; i<5; i++)
+        {
+            double temp = ((double)piece.size())/(preferences[i]/expectedTotal);
+             expected[i] = (int)temp;//floor
+        }
+
+        //calculate actual number of notes by duration
+        int[] actual = new int[5];
+        for(int i=0; i<piece.numberOfNotes(); i++)
+        {
+            actual[piece.getNote(i).getDuration()]++;
+        }
+
+        for(int i=0; i<5; i++)
+        {
+            score = score + expected[i] - (Math.abs(expected[i] - actual[i]));
+        }
+        return score;
     }
 }

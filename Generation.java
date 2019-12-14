@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-//import java.utilconcurrent.*;
+import java.util.concurrent.*;
 import java.util.*;
 
 public class Generation
@@ -29,6 +29,8 @@ public class Generation
 
     public void advance()
     {
+        cull();
+        repopulate();
         evaluate();
         sort();
         return;
@@ -51,10 +53,65 @@ public class Generation
         generation.sort(Comparator.comparingInt(Piece::getScore).reversed());
     }
 
+    public void cull()
+    {
+        ArrayList<Piece> survivors = new ArrayList<Piece>();
+        //Print.p("_________");
+        for(int i=0; i<survivalPopulationSize; i++)
+        {
+            //Print.p(""+getPiece(i).getScore());
+            survivors.add(getPiece(i));
+        }
+        //Print.p("_________");
+        this.generation = survivors;
+    }
+
+    public void repopulate()
+    {
+        ArrayList<Piece> mutations = new ArrayList<Piece>();
+        //Print.p("Pop Size: " + popluationSize + "| Survival Size: " + survivalPopulationSize);
+        for(int i=0; i<popluationSize; i++)
+        {
+             if(i<10)
+             {
+                 mutations.add(getPiece(i));
+             }
+             else
+             {
+                 Piece input = getRandomPiece();
+                 Piece mutation = input.mutate();
+                 mutations.add(mutation);
+             }
+        }
+        this.generation = mutations;
+    }
+
     public Piece getBestPiece()
     {
         return generation.get(0);
     }
 
+    public Piece getPiece(int index)
+    {
+        return generation.get(index);
+    }
+
+    public Piece getRandomPiece()
+    {
+        int index = ThreadLocalRandom.current().nextInt(0, generation.size()-1);
+        return generation.get(index);
+    }
+
+    public double getAverageScore()
+    {
+        //Print.p("this far");
+        double totalScore = 0;
+        for(int i=0; i<generation.size(); i++)
+        {
+            totalScore = totalScore + generation.get(i).getScore();
+        }
+        double averageScore = totalScore/(double)generation.size();
+        return averageScore;
+    }
 
 }

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.concurrent.*;
 
 public class Piece //implements Comparable
 {
@@ -8,6 +9,15 @@ public class Piece //implements Comparable
     public Piece()
     {
         this.bars = new ArrayList<Bar>();
+    }
+
+    public Piece(Piece piece)
+    {
+        this.bars = new ArrayList<Bar>();
+        for(int i=0; i<piece.size(); i++)
+        {
+            bars.add(new Bar(piece.getBar(i)));
+        }
     }
 
     public void addBar(Bar bar)
@@ -77,5 +87,38 @@ public class Piece //implements Comparable
             bars.get(i).Print();
             Print.p("----------");
         }
+    }
+
+    public void printLetters()
+    {
+        String out = "";
+        for(int i=0; i<numberOfNotes(); i++)
+        {
+            out = out +getNote(i).getLetter();
+            //if((i+1) < numberOfNotes())
+            //    out = out + "-";
+        }
+        Print.p(out);
+    }
+
+    public Piece mutate()
+    {
+        int numberOfMutations = 3;
+        int intensity = 1;
+        Piece mutatedPiece = new Piece(this);
+        for(int i=0; i<numberOfMutations; i++)
+        {
+            mutatedPiece.getRandomNote().mutateNote(intensity);
+        }
+        //printLetters();
+        //mutatedPiece.printLetters();
+        //Print.p("");
+        return mutatedPiece;
+    }
+
+    public Note getRandomNote()
+    {
+        int index = ThreadLocalRandom.current().nextInt(0, numberOfNotes()+1);
+        return getNote(index);
     }
 }

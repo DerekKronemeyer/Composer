@@ -14,24 +14,37 @@ public class GeneticAlgorithm
 
         generation.evaluate();
         generation.sort();
+
+        showBestPiece();
+        for(int i=0; i<1000; i++)
+        {
+            generation.advance();
+            showBestPiece();
+        }
         playBestPiece();
+
+    }
+
+    public void showBestPiece()
+    {
+        Piece best = generation.getBestPiece();
+        Print.p("------------------Generation------------------------");
+        Print.p("Average Score: " + generation.getAverageScore());
+        Print.p("Best Score: " + best.getScore());
+        //best.Print();
+        //Print.p("----------------------------------------------------");
+
+        //MusicPlayer mp = new MusicPlayer(30);
+        //mp.Play(best);
     }
 
     public void playBestPiece()
     {
         Piece best = generation.getBestPiece();
-        Print.p("------------------BEST PIECE------------------------");
-        Print.p("Score: " + best.getScore());
-        best.Print();
         Print.p("----------------------------------------------------");
+        best.Print();
 
         MusicPlayer mp = new MusicPlayer(30);
         mp.Play(best);
     }
-
-
-
-
-
-
 }

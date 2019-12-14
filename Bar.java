@@ -12,6 +12,16 @@ public class Bar
         this.maxDuration = maxDuration;
     }
 
+    public Bar(Bar bar)
+    {
+        this.notes = new ArrayList<Note>();
+        this.maxDuration = bar.getMaxDuration();
+        for(int i=0; i<bar.size(); i++)
+        {
+            addNote(new Note(bar.getNote(i)));
+        }
+    }
+
     public void addNote(Note note)
     {
         //Print.p(duration + "/" + maxDuration);
@@ -35,9 +45,24 @@ public class Bar
         }
     }
 
+    public String getStructure()
+    {
+        String structure = "";
+        for(int i=0; i<size(); i++)
+        {
+            structure = structure + getNote(i).getDuration();
+        }
+        return structure;
+    }
+
     public Note getNote(int i)
     {
         return notes.get(i);
+    }
+
+    public int getMaxDuration()
+    {
+        return this.maxDuration;
     }
 
     public int size()
