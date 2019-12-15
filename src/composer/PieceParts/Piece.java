@@ -5,15 +5,20 @@ public class Piece //implements Comparable
 {
     private ArrayList<Bar> bars;
     private int score;
+    private String name;
 
     public Piece()
     {
         this.bars = new ArrayList<Bar>();
+        this.score = 0;
+        this.name = "Unnamed Piece";
     }
 
     public Piece(Piece piece)
     {
         this.bars = new ArrayList<Bar>();
+        this.score = 0;
+        this.name = piece.getName();
         for(int i=0; i<piece.size(); i++)
         {
             bars.add(new Bar(piece.getBar(i)));
@@ -43,6 +48,16 @@ public class Piece //implements Comparable
     public int getScore()
     {
         return score;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public String getName()
+    {
+        return name;
     }
 
     public Bar lastBar()

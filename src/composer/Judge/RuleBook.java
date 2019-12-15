@@ -89,7 +89,7 @@ public class RuleBook
         for(int i=0; i<piece.numberOfNotes(); i++)
         {
             if(ks.isMajor(piece.getNote(i)))
-                score = score + 5;
+                score = score + 7;
         }
         return score;
     }
