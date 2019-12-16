@@ -10,7 +10,7 @@ public class GeneticAlgorithm
     {
         composer = new Composer();
         generation = new Generation(composer);
-        bestPieces = new ArrayList<Piece>();
+        //bestPieces = new ArrayList<Piece>();
 
         generation.evaluate();
         generation.sort();

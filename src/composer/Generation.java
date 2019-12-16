@@ -21,6 +21,7 @@ public class Generation
         {
             Piece piece = composer.createPiece();
             //Print.p("Size of piece: "+piece.size());
+            piece.setName("piece" + i);
             generation.add(piece);
             //Print.p("Size of generation: " + generation.size());
         }
@@ -112,6 +113,11 @@ public class Generation
         }
         double averageScore = totalScore/(double)generation.size();
         return averageScore;
+    }
+
+    public int size()
+    {
+        return generation.size();
     }
 
 }

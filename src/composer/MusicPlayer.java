@@ -83,9 +83,6 @@ public class MusicPlayer
         }
     }
 
-
-
-
     public static MidiEvent makeEvent(int command, int channel, int note, int velocity, int tick)
 	{
 		MidiEvent event = null;
@@ -101,4 +98,9 @@ public class MusicPlayer
 		}
 		return event;
 	}
+
+    public static void Display(Piece piece)
+    {
+        JOptionPane.showMessageDialog(null, "Insert notes here :)", piece.getName(), JOptionPane.PLAIN_MESSAGE);
+    }
 }
