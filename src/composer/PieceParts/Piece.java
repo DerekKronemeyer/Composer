@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.concurrent.*;
 
-public class Piece //implements Comparable
+public class Piece
 {
     private ArrayList<Bar> bars;
     private int score;
@@ -62,6 +62,8 @@ public class Piece //implements Comparable
 
     public Bar lastBar()
     {
+        if(bars.size() == 0)
+            return null;
         return bars.get(bars.size()-1);
     }
 
@@ -77,6 +79,8 @@ public class Piece //implements Comparable
 
     public Note getNote(int noteIndex)
     {
+        if(noteIndex < 0)
+            return null;
         int notesParsed = 0;
         for(int i=0; i<size(); i++)
         {

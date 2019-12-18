@@ -41,9 +41,23 @@ public class KeySignature
 
     public Boolean isMajor(Note note)
     {
+        int difference = 0;
         for(int i=0; i<major.length; i++)
         {
-            if((note.getPitch() % 12) == (tonic.getPitch() % 12) + major[i])
+            difference = difference + major[i];
+            if((note.getPitch() % 12) == (tonic.getPitch() % 12) + (difference%12))
+                return true;
+        }
+        return false;
+    }
+
+    public Boolean isMinor(Note note)
+    {
+        int difference = 0;
+        for(int i=0; i<major.length; i++)
+        {
+            difference = difference + minor[i];
+            if((note.getPitch() % 12) == (tonic.getPitch() % 12) + (difference%12))
                 return true;
         }
         return false;

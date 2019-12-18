@@ -31,11 +31,7 @@ public class GeneticAlgorithm
         Print.p("------------------Generation------------------------");
         Print.p("Average Score: " + generation.getAverageScore());
         Print.p("Best Score: " + best.getScore());
-        //best.Print();
-        //Print.p("----------------------------------------------------");
 
-        //MusicPlayer mp = new MusicPlayer(30);
-        //mp.Play(best);
     }
 
     public void playBestPiece()

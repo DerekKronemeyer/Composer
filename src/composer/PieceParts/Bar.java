@@ -72,6 +72,10 @@ public class Bar
 
     public Note lastNote()
     {
+        if(notes.size() == 0)
+        {
+            return null;
+        }
         return notes.get(notes.size()-1);
     }
 

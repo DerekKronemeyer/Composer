@@ -64,6 +64,18 @@ public class Note
         //Print.p("Pitch: " + pitch + ", Duration: " + duration);
     }
 
+    public int getOctave()
+    {
+        int temp = pitch;
+        int octave = -1;
+        while(temp >= 12)
+        {
+            temp = temp - 12;
+            octave = octave + 1;
+        }
+        return octave;
+    }
+
     public String getLetter()
     {
         String noteLetter = "NULL";
@@ -72,18 +84,18 @@ public class Note
         {
             temp = temp - 12;
         }
-        if(temp == 0){noteLetter =  "C ";}
+        if(temp == 0){noteLetter =  "C";}
         if(temp == 1){noteLetter =  "C#";}
-        if(temp == 2){noteLetter =  "D ";}
+        if(temp == 2){noteLetter =  "D";}
         if(temp == 3){noteLetter =  "D#";}
-        if(temp == 4){noteLetter =  "E ";}
-        if(temp == 5){noteLetter =  "F ";}
+        if(temp == 4){noteLetter =  "E";}
+        if(temp == 5){noteLetter =  "F";}
         if(temp == 6){noteLetter =  "F#";}
-        if(temp == 7){noteLetter =  "G ";}
+        if(temp == 7){noteLetter =  "G";}
         if(temp == 8){noteLetter =  "G#";}
-        if(temp == 9){noteLetter =  "A ";}
+        if(temp == 9){noteLetter =  "A";}
         if(temp == 10){noteLetter = "A#";}
-        if(temp == 11){noteLetter = "B ";}
+        if(temp == 11){noteLetter = "B";}
         return noteLetter;
     }
 

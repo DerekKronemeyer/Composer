@@ -71,7 +71,7 @@ public class RuleBook
 
     public static int finality(Piece piece)
     {
-        if(piece.lastBar().size() == 1)
+        if((piece.lastBar().size() == 1) && (piece.lastBar().isFull()))
         {
             return 100;
         }
