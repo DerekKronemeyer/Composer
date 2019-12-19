@@ -3,16 +3,22 @@ import javax.swing.*;
 
 public class StatisticsPanel extends JPanel
 {
-    Generation generation;
-    public StatisticsPanel(Generation generation)
+    Controller controller;
+    public StatisticsPanel(Controller controller)
     {
         super();
-        this.generation = generation;
+        this.controller = controller;
         //setBorder(BorderFactory.createLineBorder(Color.black));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(new JLabel("Generation Statistics"));
         //add(new JSeparator(SwingConstants.HORIZONTAL));
-        add(new JLabel("Average Score: " + generation.getAverageScore()));
-        add(new JLabel("Best Score: " + generation.getBestPiece().getScore()));
+        add(new JLabel("Average Score: " + controller.getGeneticAlgorithm().getGeneration().getAverageScore()));
+        add(new JLabel("Best Score: " + controller.getGeneticAlgorithm().getGeneration().getBestPiece().getScore()));
+    }
+
+    public void refresh()
+    {
+        //FIXME
+        return;
     }
 }

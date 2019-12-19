@@ -4,15 +4,19 @@ import javax.swing.plaf.basic.*;
 
 public class GUI extends JFrame
 {
-    public GUI()
+    private Controller controller;
+    private PiecesPanel piecesPanel;
+    private StatisticsPanel stats;
+    private EvolutionPanel evolution;
+    private ControlPanel control;
+
+    public GUI(Controller controller)
     {
         super("Composer");
+        this.controller = controller;
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         //setLayout(new GridLayout(1, 2));
-
-
-
 
         JMenuBar menuBar = new JMenuBar();
             JMenu file = new JMenu("file");
@@ -39,18 +43,21 @@ public class GUI extends JFrame
             menuBar.add(help);
         setJMenuBar(menuBar);
 
-
-        Composer composer = new Composer();
-        Generation generation = new Generation(composer);
-        PiecesPanel piecesPanel = new PiecesPanel(generation);
+        piecesPanel = new PiecesPanel(controller);
         JScrollPane scrollPane = new JScrollPane(piecesPanel);
         add(scrollPane);
 
         //test.setMaximumSize(new Dimension(200, test.getHeight()));
-        StatisticsPanel stats = new StatisticsPanel(generation);
-        ControlPanel control = new ControlPanel();
+        stats = new StatisticsPanel(controller);
+        evolution = new EvolutionPanel(controller);
+        control = new ControlPanel(controller);
         JScrollPane scrollPane2 = new JScrollPane(control);
-        JSplitPane sideSplitter = new JSplitPane(JSplitPane.VERTICAL_SPLIT, stats, scrollPane2);
+
+        JSplitPane topPanel = new JSplitPane(JSplitPane.VERTICAL_SPLIT, stats, evolution);
+        topPanel.setOneTouchExpandable(false);
+        topPanel.setDividerLocation(50);
+
+        JSplitPane sideSplitter = new JSplitPane(JSplitPane.VERTICAL_SPLIT, topPanel, scrollPane2);
         sideSplitter.setOneTouchExpandable(false);
         sideSplitter.setDividerLocation(150);
 
@@ -73,8 +80,13 @@ public class GUI extends JFrame
         setVisible(true);
     }
 
-
-
-
+    public void refresh()
+    {
+        Print.a("refreshing");
+        // piecesPanel.refresh();
+        // stats.refresh();
+        // evolution.refresh();
+        // control.refresh();
+    }
 
 }

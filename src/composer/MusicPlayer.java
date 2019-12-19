@@ -98,9 +98,4 @@ public class MusicPlayer
 		}
 		return event;
 	}
-
-    public static void Display(Piece piece)
-    {
-        JOptionPane.showMessageDialog(null, "Insert notes here :)", piece.getName(), JOptionPane.PLAIN_MESSAGE);
-    }
 }

@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.concurrent.*;
+import javax.swing.*;
 
 public class Piece
 {
@@ -139,5 +140,12 @@ public class Piece
     {
         int index = ThreadLocalRandom.current().nextInt(0, numberOfNotes()+1);
         return getNote(index);
+    }
+
+    public void display()
+    {
+        JFrame display = new JFrame("" + getName());
+        display.add(new JLabel("MUSIC!"));
+        display.setVisible(true);
     }
 }

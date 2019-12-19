@@ -26,10 +26,8 @@ public class Main
     */
     public static void main(String[] args)
     {
-        //GUI gui = new GUI();
-
         GeneticAlgorithm ga = new GeneticAlgorithm();
-
+        Controller controller = new Controller(ga);
+        GUI gui = new GUI(controller);
     }
-
 }

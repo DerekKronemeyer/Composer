@@ -156,6 +156,60 @@ public class TestRuleBook
         assertEquals("Testing Rules", RuleBook.keySignatureEnforcement(p), 49);
         p.lastBar().addNote(new Note(84, 1));
         assertEquals("Testing Rules", RuleBook.keySignatureEnforcement(p), 56);
+    }
 
+    @Test public void TestSimilarBarStructre()
+    {
+        p.addBar(new Bar(3));
+        p.getBar(0).addNote(new Note(72, 1));
+        p.getBar(0).addNote(new Note(72, 1));
+        p.getBar(0).addNote(new Note(72, 1));
+        assertEquals("Testing Rules", RuleBook.similarBarStructure(p), 0);
+        p.addBar(new Bar(3));
+        p.getBar(1).addNote(new Note(72, 1));
+        p.getBar(1).addNote(new Note(72, 1));
+        p.getBar(1).addNote(new Note(72, 1));
+        assertEquals("Testing Rules", RuleBook.similarBarStructure(p), 5);
+        p.addBar(new Bar(3));
+        p.getBar(2).addNote(new Note(72, 1));
+        p.getBar(2).addNote(new Note(72, 2));
+        assertEquals("Testing Rules", RuleBook.similarBarStructure(p), 5);
+        p.addBar(new Bar(3));
+        p.getBar(3).addNote(new Note(72, 2));
+        p.getBar(3).addNote(new Note(72, 1));
+        assertEquals("Testing Rules", RuleBook.similarBarStructure(p), 5);
+        p.addBar(new Bar(3));
+        p.getBar(4).addNote(new Note(72, 1));
+        p.getBar(4).addNote(new Note(72, 2));
+        assertEquals("Testing Rules", RuleBook.similarBarStructure(p), 10);
+    }
+
+    @Test public void TestnoteDuration()
+    {
+        p.addBar(new Bar(12));
+        for(int i=0; i<12; i++)
+        {
+            p.getBar(0).addNote(new Note(72, 1));
+        }
+        //Print.a(""+RuleBook.noteDuration(p));
+        p.addBar(new Bar(12));
+        for(int i=0; i<6; i++)
+        {
+            p.getBar(1).addNote(new Note(72, 2));
+        }
+        //Print.a(""+RuleBook.noteDuration(p));
+        p.addBar(new Bar(12));
+        for(int i=0; i<4; i++)
+        {
+            p.getBar(2).addNote(new Note(72, 3));
+        }
+        //Print.a(""+RuleBook.noteDuration(p));
+        p.addBar(new Bar(12));
+        for(int i=0; i<3; i++)
+        {
+            p.getBar(3).addNote(new Note(72, 4));
+        }
+        //Print.a(""+RuleBook.noteDuration(p));
+        assertEquals("Testing Rules", RuleBook.noteDuration(p), 25);
     }
 }

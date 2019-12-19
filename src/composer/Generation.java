@@ -28,14 +28,14 @@ public class Generation
 
     }
 
-    public void advance()
-    {
-        cull();
-        repopulate();
-        evaluate();
-        sort();
-        return;
-    }
+    // public void advance()
+    // {
+    //     cull();
+    //     repopulate();
+    //     evaluate();
+    //     sort();
+    //     return;
+    // }
 
     public void evaluate()
     {
@@ -56,8 +56,8 @@ public class Generation
 
     public void cull()
     {
+        //Print.a("culling");
         ArrayList<Piece> survivors = new ArrayList<Piece>();
-        //Print.p("_________");
         for(int i=0; i<survivalPopulationSize; i++)
         {
             //Print.p(""+getPiece(i).getScore());

@@ -123,12 +123,18 @@ public class RuleBook
             expectedTotal = expectedTotal + preferences[i];
         }
 
+        //Print.a("Expected total: " + expectedTotal);
+
         // calculate expected number of notes by duration based on preferences
         int[] expected = new int[5];//this is what we are looking for!
         for(int i=0; i<5; i++)
         {
-            double temp = ((double)piece.size())/(preferences[i]/expectedTotal);
-             expected[i] = (int)temp;//floor
+            //Print.a("" + (double)piece.numberOfNotes() + "/(" + preferences[i] + "/" + expectedTotal + ")");
+            double expectedRatio = preferences[i]/expectedTotal;
+            //Print.a("tempRatio: " + tempRatio);
+            double temp = ((double)piece.numberOfNotes())*expectedRatio;
+            //Print.a("temp: " + temp);
+            expected[i] = (int)temp;//floor
         }
 
         //calculate actual number of notes by duration
@@ -137,6 +143,15 @@ public class RuleBook
         {
             actual[piece.getNote(i).getDuration()]++;
         }
+
+        //Print.a("Expected quarter notes: " + expected[1]);
+        //Print.a("Actual quarter notes: " + actual[1]);
+        //Print.a("Expected half notes: " + expected[2]);
+        //Print.a("Actual half notes: " + actual[2]);
+        //Print.a("Expected dotted half notes: " + expected[3]);
+        //Print.a("Actual dotted half notes: " + actual[3]);
+        //Print.a("Expected whole notes: " + expected[4]);
+        //Print.a("Actual whole notes: " + actual[4]);
 
         for(int i=0; i<5; i++)
         {

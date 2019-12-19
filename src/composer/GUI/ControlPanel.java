@@ -3,18 +3,13 @@ import javax.swing.*;
 
 public class ControlPanel extends JPanel
 {
-    //Generation generation;
+    Controller controller;
 
-    public ControlPanel()//Generation generation)
+    public ControlPanel(Controller controller)//Generation generation)
     {
         super();
-        //this.generation = generation;
+        this.controller = controller;
         setLayout(new GridLayout(0,2));
-        //add(new JLabel("Control Rules"));
-        //add(new JSeparator(SwingConstants.HORIZONTAL));
-
-        //String[] descriptions = {"Population Size: ", "Survival Size: ", "Mutation Size"};
-        //int[] values = {1000, 10, 100};
         for(int i=0; i<30; i++)
         {
             JLabel label = new JLabel("label"+i);
@@ -23,8 +18,12 @@ public class ControlPanel extends JPanel
             JTextField text = new JTextField(""+1000+i);
             //text.setMaximumSize(new Dimension(10, 20));
             add(text);
-
-
         }
+    }
+
+    public void refresh()
+    {
+        //FIXME
+        return;
     }
 }

@@ -4,25 +4,45 @@ public class GeneticAlgorithm
 {
     Composer composer;
     Generation generation;
-    ArrayList<Piece> bestPieces;
+    MusicPlayer mp;
+    //ArrayList<Piece> bestPieces;
 
     public GeneticAlgorithm()
     {
         composer = new Composer();
         generation = new Generation(composer);
+        mp = new MusicPlayer(30);
         //bestPieces = new ArrayList<Piece>();
 
         generation.evaluate();
         generation.sort();
 
-        showBestPiece();
-        for(int i=0; i<1000; i++)
-        {
-            generation.advance();
-            showBestPiece();
-        }
-        playBestPiece();
+        // //showBestPiece();
+        // for(int i=0; i<1000; i++)
+        // {
+        //     advance();
+        //     //showBestPiece();
+        // }
+        // playBestPiece(mp);
+    }
 
+    public Generation getGeneration()
+    {
+        return generation;
+    }
+
+    public MusicPlayer getMusicPlayer()
+    {
+        return mp;
+    }
+
+    public void advance()
+    {
+        generation.cull();
+        generation.repopulate();
+        generation.evaluate();
+        generation.sort();
+        return;
     }
 
     public void showBestPiece()
@@ -34,13 +54,14 @@ public class GeneticAlgorithm
 
     }
 
-    public void playBestPiece()
+    public void playBestPiece(MusicPlayer mp)
     {
         Piece best = generation.getBestPiece();
-        Print.p("----------------------------------------------------");
-        best.Print();
-
-        MusicPlayer mp = new MusicPlayer(30);
         mp.Play(best);
+    }
+
+    public void updateMusicPlayer(int tempo)
+    {
+        this.mp = new MusicPlayer(tempo);
     }
 }
