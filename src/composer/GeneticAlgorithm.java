@@ -64,4 +64,9 @@ public class GeneticAlgorithm
     {
         this.mp = new MusicPlayer(tempo);
     }
+
+    public int size()
+    {
+        return generation.size();
+    }
 }

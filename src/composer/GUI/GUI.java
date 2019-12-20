@@ -80,13 +80,16 @@ public class GUI extends JFrame
         setVisible(true);
     }
 
+    public PiecesPanel getPiecesPanel(){return piecesPanel;}
+
     public void refresh()
     {
-        Print.a("refreshing");
-        // piecesPanel.refresh();
-        // stats.refresh();
-        // evolution.refresh();
-        // control.refresh();
+        //Print.a("refreshing");
+        piecesPanel.refresh();// = new PiecesPanel(controller);
+        //stats = new StatisticsPanel(controller);
+        //evolution = new EvolutionPanel(controller);
+        //control = new ControlPanel(controller);
+        //Print.a("refreshed");
     }
 
 }

@@ -29,5 +29,6 @@ public class Main
         GeneticAlgorithm ga = new GeneticAlgorithm();
         Controller controller = new Controller(ga);
         GUI gui = new GUI(controller);
+        controller.setGUI(gui);
     }
 }

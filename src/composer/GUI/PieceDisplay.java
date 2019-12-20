@@ -13,10 +13,11 @@ public class PieceDisplay extends JFrame
         this.controller = controller;
         this.index = index;
         Piece piece = controller.getGeneticAlgorithm().getGeneration().getPiece(index);
-        setSize(400, 300);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(300, 800);
+        //setDefaultCloseOperation(EXIT_ON_CLOSE);
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(100, 1));
+        //panel.setLayout(new GridLayout(100, 1));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         //panel.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         panel.add(new JLabel("----------"));
         for(int i=0; i<piece.size(); i++)
