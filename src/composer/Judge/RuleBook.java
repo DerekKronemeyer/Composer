@@ -3,7 +3,15 @@ import java.util.*;
 
 public class RuleBook
 {
-    public static int firstLastTonic(Piece piece)
+    KeySignature ks;
+    int[] intervalValues;
+
+    public RuleBook()
+    {
+        intervalValues = new int[]{4,4,9,6,6,3,0,3,2,2,1,1,5};
+    }
+
+    public int firstLastTonic(Piece piece)
     {
         Note first = piece.getBar(0).getNote(0);
         Note last = piece.lastBar().lastNote();
@@ -17,32 +25,25 @@ public class RuleBook
         }
     }
 
-    public static int intervalPreferences(Piece piece)
+    public int intervalPreferences(Piece piece)
     {
         int score = 0;
         for(int i=1; i<piece.numberOfNotes(); i++)
         {
             int pitch1 = piece.getNote(i).getPitch();
             int pitch2 = piece.getNote(i-1).getPitch();
-
-            if(Math.abs(pitch1-pitch2) == 0){score = score + 4;}
-            if(Math.abs(pitch1-pitch2) == 1){score = score + 4;}
-            if(Math.abs(pitch1-pitch2) == 2){score = score + 9;}
-            if(Math.abs(pitch1-pitch2) == 3){score = score + 6;}
-            if(Math.abs(pitch1-pitch2) == 4){score = score + 6;}
-            if(Math.abs(pitch1-pitch2) == 5){score = score + 3;}
-            if(Math.abs(pitch1-pitch2) == 6){score = score + 0;}
-            if(Math.abs(pitch1-pitch2) == 7){score = score + 3;}
-            if(Math.abs(pitch1-pitch2) == 8){score = score + 2;}
-            if(Math.abs(pitch1-pitch2) == 9){score = score + 2;}
-            if(Math.abs(pitch1-pitch2) == 10){score = score + 1;}
-            if(Math.abs(pitch1-pitch2) == 11){score = score + 1;}
-            if(Math.abs(pitch1-pitch2) == 12){score = score + 5;}
+            for(int j=0; j<13; j++)
+            {
+                if(Math.abs(pitch1-pitch2) == j)
+                {
+                    score = score + intervalValues[j];
+                }
+            }
         }
         return score;
     }
 
-    public static int noBigJumps(Piece piece)
+    public int noBigJumps(Piece piece)
     {
         int score = 0;
         for(int i=1; i<piece.numberOfNotes(); i++)
@@ -55,7 +56,7 @@ public class RuleBook
         return score;
     }
 
-    public static int contourEnforcement(Piece piece)
+    public int contourEnforcement(Piece piece)
     {
         int score = 0;
         for(int i=2; i<piece.numberOfNotes(); i++)
@@ -69,7 +70,7 @@ public class RuleBook
         return score;
     }
 
-    public static int finality(Piece piece)
+    public int finality(Piece piece)
     {
         if((piece.lastBar().size() == 1) && (piece.lastBar().isFull()))
         {
@@ -81,20 +82,20 @@ public class RuleBook
         }
     }
 
-    public static int keySignatureEnforcement(Piece piece)
+    public int keySignatureEnforcement(Piece piece)
     {
         int score = 0;
         Note tonic = piece.getBar(0).getNote(0);
-        KeySignature ks = new KeySignature(tonic);
+        ks = new KeySignature(tonic);
         for(int i=0; i<piece.numberOfNotes(); i++)
         {
-            if(ks.isMajor(piece.getNote(i)))
+            if(ks.isInKeySignature(piece.getNote(i)))
                 score = score + 7;
         }
         return score;
     }
 
-    public static int similarBarStructure(Piece piece)
+    public int similarBarStructure(Piece piece)
     {
         int score = 0;
         ArrayList<String> structures = new ArrayList<String>();
@@ -113,7 +114,7 @@ public class RuleBook
         return score;
     }
 
-    public static int noteDuration(Piece piece)
+    public int noteDuration(Piece piece)
     {
         int score = 0;
         double[] preferences = {0.0, 12.0, 6.0, 4.0, 3.0};//expected ratio of notes of index duration
@@ -122,8 +123,6 @@ public class RuleBook
         {
             expectedTotal = expectedTotal + preferences[i];
         }
-
-        //Print.a("Expected total: " + expectedTotal);
 
         // calculate expected number of notes by duration based on preferences
         int[] expected = new int[5];//this is what we are looking for!
@@ -144,19 +143,15 @@ public class RuleBook
             actual[piece.getNote(i).getDuration()]++;
         }
 
-        //Print.a("Expected quarter notes: " + expected[1]);
-        //Print.a("Actual quarter notes: " + actual[1]);
-        //Print.a("Expected half notes: " + expected[2]);
-        //Print.a("Actual half notes: " + actual[2]);
-        //Print.a("Expected dotted half notes: " + expected[3]);
-        //Print.a("Actual dotted half notes: " + actual[3]);
-        //Print.a("Expected whole notes: " + expected[4]);
-        //Print.a("Actual whole notes: " + actual[4]);
-
         for(int i=0; i<5; i++)
         {
             score = score + expected[i] - (Math.abs(expected[i] - actual[i]));
         }
         return score;
+    }
+
+    public KeySignature getKeySignature()
+    {
+        return ks;
     }
 }

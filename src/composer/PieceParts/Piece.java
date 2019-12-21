@@ -2,6 +2,11 @@ import java.util.ArrayList;
 import java.util.concurrent.*;
 import javax.swing.*;
 
+/**
+ * A class Piece of music represented by an arraylist of bars
+ *
+ * @author Derek Kronemeyer
+ */
 public class Piece
 {
     private ArrayList<Bar> bars;

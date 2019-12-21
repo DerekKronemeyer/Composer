@@ -11,14 +11,14 @@ public class Generation
     private Composer composer;
     private MusicJudge judge;
 
-    public Generation(Composer composer)
+    public Generation(Composer composer, MusicJudge judge)
     {
         this.generation = new ArrayList<Piece>();
         this.popluationSize = 1000;
         this.index = 0;
         this.survivalPopulationSize = 100;
         this.composer = composer;
-        this.judge = new MusicJudge();
+        this.judge = judge;
         for(int i=0; i<popluationSize; i++)
         {
             Piece piece = composer.createPiece();

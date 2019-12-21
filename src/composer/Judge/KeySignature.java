@@ -2,6 +2,8 @@
 public class KeySignature
 {
     private Note tonic;
+    private int[] currentKeySignature;
+    private String currentName;
 
     private int[] major;
     private int[] minor;
@@ -18,10 +20,13 @@ public class KeySignature
     private int[] hexatonic;
     private int[] heptatonic;
     private int[] nonatonic;
+    //no key Signature
+    private int[] none;
 
     public KeySignature(Note tonic)
     {
         this.tonic = tonic;
+
         this.major =      new int[]{2,2,1,2,2,2,1};
         this.minor =      new int[]{2,1,2,2,1,3,1};
 
@@ -37,29 +42,106 @@ public class KeySignature
         this.hexatonic =  new int[]{3,2,1,1,3,2};
         this.heptatonic = new int[]{2,1,2,1,3,1,2};
         this.nonatonic =  new int[]{2,1,1,1,2,2,1,1,1};
+        //no key sgnature
+        this.none =       new int[]{1,1,1,1,1,1,1,1,1,1,1,1};
+
+        setKeySignature(0);
     }
 
-    public Boolean isMajor(Note note)
+    public Boolean isInKeySignature(Note note)
     {
         int difference = 0;
-        for(int i=0; i<major.length; i++)
+        for(int i=0; i<currentKeySignature.length; i++)
         {
-            difference = difference + major[i];
+            difference = difference + currentKeySignature[i];
             if((note.getPitch() % 12) == (tonic.getPitch() % 12) + (difference%12))
                 return true;
         }
         return false;
     }
 
-    public Boolean isMinor(Note note)
+    public void setKeySignature(int index)
     {
-        int difference = 0;
-        for(int i=0; i<major.length; i++)
+        if(index == 0)
         {
-            difference = difference + minor[i];
-            if((note.getPitch() % 12) == (tonic.getPitch() % 12) + (difference%12))
-                return true;
+            currentKeySignature = major;
+            currentName = "Major";
         }
-        return false;
+        else if(index == 1)
+        {
+            currentKeySignature = minor;
+            currentName = "Minor";
+        }
+        else if(index == 2)
+        {
+            currentKeySignature = dorian;
+            currentName = "Dorian";
+        }
+        else if(index == 3)
+        {
+            currentKeySignature = phrygian;
+            currentName = "Phrygian";
+        }
+        else if(index == 4)
+        {
+            currentKeySignature = lydian;
+            currentName = "Lydian";
+        }
+        else if(index == 5)
+        {
+            currentKeySignature = mixolydian;
+            currentName = "Mixolydian";
+        }
+        else if(index == 6)
+        {
+            currentKeySignature = ionian;
+            currentName = "Ionian";
+        }
+        else if(index == 7)
+        {
+            currentKeySignature = aeolian;
+            currentName = "Aeolian";
+        }
+        else if(index == 8)
+        {
+            currentKeySignature = locrian;
+            currentName = "Locrian";
+        }
+        else if(index == 9)
+        {
+            currentKeySignature = pentatonic;
+            currentName = "Pentatonic";
+        }
+        else if(index == 10)
+        {
+            currentKeySignature = hexatonic;
+            currentName = "Hexatonic";
+        }
+        else if(index == 11)
+        {
+            currentKeySignature = heptatonic;
+            currentName = "Heptatonic";
+        }
+        else if(index == 12)
+        {
+            currentKeySignature = nonatonic;
+            currentName = "Nonatonic";
+        }
+        else if(index == 13)
+        {
+            currentKeySignature = none;
+            currentName = "None";
+        }
+        else//if all else fails set key signature to major
+        {
+            currentKeySignature = major;
+            currentName = "Major";
+        }
+        //Print.a("key sig set to: " + currentName);
+    }
+
+    public String getName()
+    {
+        return currentName;
     }
 }

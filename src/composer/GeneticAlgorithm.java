@@ -3,13 +3,14 @@ import java.util.ArrayList;
 public class GeneticAlgorithm
 {
     Composer composer;
+    MusicJudge judge;
     Generation generation;
 
     public GeneticAlgorithm()
     {
         composer = new Composer();
-        generation = new Generation(composer);
-        //mp = new MusicPlayer(30);
+        judge = new MusicJudge();
+        generation = new Generation(composer, judge);
 
         generation.evaluate();
         generation.sort();
@@ -18,6 +19,11 @@ public class GeneticAlgorithm
     public Generation getGeneration()
     {
         return generation;
+    }
+
+    public MusicJudge getMusicJudge()
+    {
+        return judge;
     }
 
     public void advance()

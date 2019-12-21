@@ -66,7 +66,7 @@ public class GUI extends JFrame
 
         JSplitPane sidePane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, sideSplitter);
         sidePane.setOneTouchExpandable(false);
-        sidePane.setDividerLocation(950);
+        sidePane.setDividerLocation(900);
         sidePane.setResizeWeight(1.0);
         sidePane.setEnabled(false);
         BasicSplitPaneDivider divider = (BasicSplitPaneDivider) sidePane.getComponent(2);

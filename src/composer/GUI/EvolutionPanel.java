@@ -67,20 +67,9 @@ public class EvolutionPanel extends JPanel
     public void nextGeneration()
     {
         int count = Integer.valueOf(genCount.getText());
-        JFrame working = new JFrame("WORK");
-        working.add(new JLabel("working :)"));
-        working.setSize(new Dimension(300,200));
-        if(count>50)
-        {
-            working.setVisible(true);
-        }
         for(int i=0; i<count; i++)
         {
             controller.getGeneticAlgorithm().advance();
-        }
-        if(count>50)
-        {
-            working.dispose();
         }
         controller.refreshGUI();
     }
