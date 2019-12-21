@@ -27,6 +27,7 @@ public class PiecesPanel extends JPanel
         removeAll();
         //------
         this.panels = new ArrayList<PiecePanel>();
+        //controller isn't changed
         setBorder(BorderFactory.createLineBorder(Color.black));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(new PiecePanel());//header

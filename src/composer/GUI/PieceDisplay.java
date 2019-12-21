@@ -13,7 +13,7 @@ public class PieceDisplay extends JFrame
         this.controller = controller;
         this.index = index;
         Piece piece = controller.getGeneticAlgorithm().getGeneration().getPiece(index);
-        setSize(300, 800);
+        setSize(250, 900);
         //setDefaultCloseOperation(EXIT_ON_CLOSE);
         JPanel panel = new JPanel();
         //panel.setLayout(new GridLayout(100, 1));

@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.plaf.basic.*;
+import java.awt.event.*;
 
 public class GUI extends JFrame
 {
@@ -14,13 +15,14 @@ public class GUI extends JFrame
     {
         super("Composer");
         this.controller = controller;
-        setSize(800, 600);
+        setSize(1200, 800);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         //setLayout(new GridLayout(1, 2));
 
         JMenuBar menuBar = new JMenuBar();
             JMenu file = new JMenu("file");
                 JMenuItem reset = new JMenuItem("Reset");
+                reset.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){reset();}});
                 file.add(reset);
                 JMenuItem saveGeneration = new JMenuItem("Save Generation");
                 file.add(saveGeneration);
@@ -28,11 +30,12 @@ public class GUI extends JFrame
                 file.add(saveRules);
                 JMenuItem saveBest = new JMenuItem("Save Best");
                 file.add(saveBest);
-                JMenuItem loadGeneration = new JMenuItem("Load Generation");
-                file.add(loadGeneration);
-                JMenuItem loadRules = new JMenuItem("Load Rules");
-                file.add(loadRules);
+                JMenuItem openGeneration = new JMenuItem("Open Generation");
+                file.add(openGeneration);
+                JMenuItem openRules = new JMenuItem("Open Rules");
+                file.add(openRules);
                 JMenuItem exit = new JMenuItem("Exit");
+                exit.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){System.exit(0);}});
                 file.add(exit);
             menuBar.add(file);
             JMenu help = new JMenu("Help");
@@ -55,15 +58,15 @@ public class GUI extends JFrame
 
         JSplitPane topPanel = new JSplitPane(JSplitPane.VERTICAL_SPLIT, stats, evolution);
         topPanel.setOneTouchExpandable(false);
-        topPanel.setDividerLocation(50);
+        topPanel.setDividerLocation(90);
 
         JSplitPane sideSplitter = new JSplitPane(JSplitPane.VERTICAL_SPLIT, topPanel, scrollPane2);
         sideSplitter.setOneTouchExpandable(false);
-        sideSplitter.setDividerLocation(150);
+        sideSplitter.setDividerLocation(220);
 
         JSplitPane sidePane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, sideSplitter);
         sidePane.setOneTouchExpandable(false);
-        sidePane.setDividerLocation(550);
+        sidePane.setDividerLocation(950);
         sidePane.setResizeWeight(1.0);
         sidePane.setEnabled(false);
         BasicSplitPaneDivider divider = (BasicSplitPaneDivider) sidePane.getComponent(2);
@@ -81,15 +84,25 @@ public class GUI extends JFrame
     }
 
     public PiecesPanel getPiecesPanel(){return piecesPanel;}
+    public StatisticsPanel getStatisticsPanel(){return stats;}
+    public EvolutionPanel getEvolutionPanel(){return evolution;}
+    public ControlPanel getControlPanel(){return control;}
 
     public void refresh()
     {
         //Print.a("refreshing");
-        piecesPanel.refresh();// = new PiecesPanel(controller);
-        //stats = new StatisticsPanel(controller);
-        //evolution = new EvolutionPanel(controller);
-        //control = new ControlPanel(controller);
+        piecesPanel.refresh();
+        stats.refresh();// = new StatisticsPanel(controller);
+        evolution.refresh();
+        //control.refresh();
         //Print.a("refreshed");
+    }
+
+    public void reset()
+    {
+        //FIXME reset all rules too
+        controller.restartGeneticAlgorithm();
+        controller.refreshGUI();
     }
 
 }

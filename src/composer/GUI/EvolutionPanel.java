@@ -6,78 +6,118 @@ public class EvolutionPanel extends JPanel
 {
     private Controller controller;
     private JButton cull;
+    private JButton repop;
+    private JButton eval;
+    private JButton sort;
+    private JButton next;
     private JTextField genCount;
+    private JButton restart;
 
     public EvolutionPanel(Controller controller)
     {
         super();
         this.controller = controller;
-        setLayout(new GridLayout(3,2));
-
+        setLayout(new GridLayout(4,2));
         cull = new JButton("Cull");
         cull.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){cullGeneration();}});
         add(cull);
-
-        JButton repop = new JButton("Repopulate");
+        repop = new JButton("Repopulate");
         repop.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){repopulateGeneration();}});
         add(repop);
-
-        JButton eval = new JButton("Evaluate");
+        eval = new JButton("Evaluate");
         eval.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){evaluateGeneration();}});
         add(eval);
-
-        JButton sort = new JButton("Sort");
+        sort = new JButton("Sort");
         sort.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){sortGeneration();}});
         add(sort);
-
-        JButton next = new JButton("Next Generation");
+        next = new JButton("Next Generation");
         next.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){nextGeneration();}});
         add(next);
-
         genCount = new JTextField("1");
         add(genCount);
+        restart = new JButton("Restart");
+        restart.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){restart();}});
+        add(restart);
     }
 
     public void cullGeneration()
-    {                           //FIXME maybe pas in gnetic algorithm instead of gui?
-        //Print.a("evo pane");
-        //GeneticAlgorithm ga = gui.getGeneticAlgorithm2();//.getGeneration().cull();
-        //gui.refresh();
-        //Print.a("done");
+    {
+        controller.getGeneration().cull();
+        controller.refreshGUI();
     }
 
     public void repopulateGeneration()
     {
-        //gui.getGeneticAlgorithm().getGeneration().repopulate();
-        //gui.refresh();
+        controller.getGeneration().repopulate();
+        controller.refreshGUI();
     }
 
     public void evaluateGeneration()
     {
-        //gui.getGeneticAlgorithm().getGeneration().evaluate();
-        //gui.refresh();
+        controller.getGeneration().evaluate();
+        controller.refreshGUI();
     }
 
     public void sortGeneration()
     {
-        //gui.getGeneticAlgorithm().getGeneration().sort();
-        //gui.refresh();
+        controller.getGeneration().sort();
+        controller.refreshGUI();
     }
 
     public void nextGeneration()
     {
         int count = Integer.valueOf(genCount.getText());
-        Print.a(""+count);
+        JFrame working = new JFrame("WORK");
+        working.add(new JLabel("working :)"));
+        working.setSize(new Dimension(300,200));
+        if(count>50)
+        {
+            working.setVisible(true);
+        }
         for(int i=0; i<count; i++)
         {
-            //gui.getGeneticAlgorithm().advance();
+            controller.getGeneticAlgorithm().advance();
         }
-        //gui.refresh();
+        if(count>50)
+        {
+            working.dispose();
+        }
+        controller.refreshGUI();
+    }
+
+    public void restart()
+    {
+        controller.restartGeneticAlgorithm();
+        controller.refreshGUI();
     }
 
     public void refresh()
     {
-        //FIXME
-        return;
+        removeAll();
+        //------
+        setLayout(new GridLayout(4,2));
+        cull = new JButton("Cull");
+        cull.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){cullGeneration();}});
+        add(cull);
+        repop = new JButton("Repopulate");
+        repop.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){repopulateGeneration();}});
+        add(repop);
+        eval = new JButton("Evaluate");
+        eval.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){evaluateGeneration();}});
+        add(eval);
+        sort = new JButton("Sort");
+        sort.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){sortGeneration();}});
+        add(sort);
+        next = new JButton("Next Generation");
+        next.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){nextGeneration();}});
+        add(next);
+        genCount = new JTextField("1");
+        add(genCount);
+        restart = new JButton("Restart");
+        restart.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){restart();}});
+        add(restart);
+        //------
+        revalidate();
+        repaint();
     }
 }

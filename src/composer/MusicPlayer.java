@@ -1,17 +1,20 @@
 import javax.sound.midi.*;
 import java.util.*;
 import javax.swing.*;
+import java.io.*;
 
 public class MusicPlayer
 {
     int tempo;
+    Controller controller;
     Sequencer sequencer;
     Sequence sequence;
     Thread thread;
 
-    public MusicPlayer(int tempo)
+    public MusicPlayer(int tempo, Controller controller)
     {
         this.tempo = tempo;
+        this.controller = controller;
         thread = new Thread();
     }
 
@@ -27,7 +30,7 @@ public class MusicPlayer
                 try{
                     sequencer = MidiSystem.getSequencer();
                     sequencer.open();
-                    sequence = new Sequence(Sequence.PPQ, 4);
+                    sequence = new Sequence(Sequence.PPQ, 1);
                     Track track = sequence.createTrack();
 
                     int notePosition = 0;
@@ -50,6 +53,7 @@ public class MusicPlayer
                     {
                         if(!sequencer.isRunning())
                         {
+                            controller.refreshGUI();
                             sequencer.close();
                             return;
                         }
@@ -85,6 +89,40 @@ public class MusicPlayer
         if(thread.isAlive())
         {
             sequencer.stop();
+        }
+    }
+
+    public void save(Piece piece)
+    {
+        try
+        {
+            sequence = new Sequence(Sequence.PPQ, 1);
+            Track track = sequence.createTrack();
+
+            int notePosition = 0;
+            for(int i=0; i<piece.size(); i++)
+            {
+                Bar bar = piece.getBar(i);
+                for(int j=0; j<bar.size(); j++)
+                {
+                    Note note = bar.getNote(j);
+                    track.add(makeEvent(144, 1, note.getPitch(), 100, notePosition));
+                    notePosition = notePosition + note.getDuration();
+                    track.add(makeEvent(128, 1, note.getPitch(), 100, notePosition));
+                }
+            }
+
+            String fileName = JOptionPane.showInputDialog("Enter File Name:");
+            if(fileName.isEmpty())
+            {
+                return;
+            }
+            File file = new File("savedPieces\\" + fileName + ".mid");
+		    MidiSystem.write(sequence, 1, file);
+        }
+        catch(Exception e)
+        {
+            Print.a("File not saved");
         }
     }
 }

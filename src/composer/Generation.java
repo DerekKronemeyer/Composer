@@ -6,6 +6,7 @@ public class Generation
 {
     private ArrayList<Piece> generation;
     private int popluationSize;
+    private int index;
     private int survivalPopulationSize;
     private Composer composer;
     private MusicJudge judge;
@@ -14,6 +15,7 @@ public class Generation
     {
         this.generation = new ArrayList<Piece>();
         this.popluationSize = 1000;
+        this.index = 0;
         this.survivalPopulationSize = 100;
         this.composer = composer;
         this.judge = new MusicJudge();
@@ -21,21 +23,12 @@ public class Generation
         {
             Piece piece = composer.createPiece();
             //Print.p("Size of piece: "+piece.size());
-            piece.setName("piece" + i);
+            piece.setName("gen0_num" + i);
             generation.add(piece);
             //Print.p("Size of generation: " + generation.size());
         }
 
     }
-
-    // public void advance()
-    // {
-    //     cull();
-    //     repopulate();
-    //     evaluate();
-    //     sort();
-    //     return;
-    // }
 
     public void evaluate()
     {
@@ -69,6 +62,7 @@ public class Generation
 
     public void repopulate()
     {
+        index = index + 1;
         ArrayList<Piece> mutations = new ArrayList<Piece>();
         //Print.p("Pop Size: " + popluationSize + "| Survival Size: " + survivalPopulationSize);
         for(int i=0; i<popluationSize; i++)
@@ -81,6 +75,7 @@ public class Generation
              {
                  Piece input = getRandomPiece();
                  Piece mutation = input.mutate();
+                 mutation.setName("gen"+index+"_num"+i);
                  mutations.add(mutation);
              }
         }
@@ -95,6 +90,11 @@ public class Generation
     public Piece getPiece(int index)
     {
         return generation.get(index);
+    }
+
+    public void deletePiece(int index)
+    {
+        generation.remove(index);
     }
 
     public Piece getRandomPiece()
@@ -113,6 +113,11 @@ public class Generation
         }
         double averageScore = totalScore/(double)generation.size();
         return averageScore;
+    }
+
+    public int number()
+    {
+        return index;
     }
 
     public int size()
