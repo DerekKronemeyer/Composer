@@ -1,4 +1,5 @@
-
+import java.util.*;
+import java.io.*;
 
 public class MusicJudge
 {
@@ -26,6 +27,7 @@ public class MusicJudge
         noBigJumpsValue = 1;
         similarBarStructureValue = 1;
         noteDurationValue = 1;
+
     }
 
     public int evaluatePiece(Piece piece)
@@ -43,6 +45,7 @@ public class MusicJudge
     }
 
     public RuleBook getRuleBook(){return rb;}
+
 
 
 }

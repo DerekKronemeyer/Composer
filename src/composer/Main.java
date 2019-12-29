@@ -26,8 +26,10 @@ public class Main
     */
     public static void main(String[] args)
     {
+
         GeneticAlgorithm ga = new GeneticAlgorithm();
         Controller controller = new Controller(ga);
+        RuleSettings rs = new RuleSettings(controller);
         GUI gui = new GUI(controller);
         controller.setGUI(gui);
     }
