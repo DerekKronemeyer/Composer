@@ -16,13 +16,13 @@ public class RuleSettings extends JFrame
     {
         super("Rule Settings");
         this.controller = controller;
-        setSize(800, 600);
+        setSize(600, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
         panel1 = new JPanel();
-        tabbedPane.addTab("1", panel1);
+        tabbedPane.addTab("Composer Settings", panel1);
 
         panel2 = new JPanel();
         tabbedPane.addTab("2", panel2);

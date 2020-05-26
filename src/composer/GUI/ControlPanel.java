@@ -5,19 +5,30 @@ import java.awt.event.*;
 public class ControlPanel extends JPanel
 {
     Controller controller;
-    JLabel keySig;
-    JButton keySigButton;
+    JLabel composerSettings, keySig;
+    JButton composerSettingsButton, keySigButton;
 
     public ControlPanel(Controller controller)//Generation generation)
     {
         super();
         this.controller = controller;
 
+        // composerSettings = new JLabel("Composer Settings");
+        // composerSettingsButton = new JButton("Change");
+        // composerSettingsButton.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){changeComposerSettings();}});
+        // add(composerSettings);
+        // add(composerSettingsButton);
+        //
+        
         keySig = new JLabel("Key Signature: " + controller.getKeySignature().getName());
         keySigButton = new JButton("Change");
         keySigButton.addActionListener(new ActionListener(){public void actionPerformed(ActionEvent e){changeKeySignature();}});
         add(keySig);
         add(keySigButton);
+
+
+
+
 
 
 

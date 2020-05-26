@@ -1,5 +1,12 @@
 import java.util.ArrayList;
 
+
+/**
+ * A genetic algorithm that is used to manage generations of music produced
+ *
+ * @author Derek Kronemeyer
+ * @version 2.0
+ */
 public class GeneticAlgorithm
 {
     Composer composer;

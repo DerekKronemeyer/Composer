@@ -36,7 +36,7 @@ public class KeySignature
         this.mixolydian = new int[]{2,2,1,2,2,1,2};
         this.ionian =     new int[]{2,2,1,2,2,2,1};//just a major scale
         this.aeolian =    new int[]{2,1,2,2,1,2,2};
-        this.locrian =    new int[]{1,2,2,1,2,2,2};
+        this.locrian =    new int[]{1,2,2,1,2,2,2};//may not be real
         this.pentatonic = new int[]{3,2,2,3,2};
         //blues scales
         this.hexatonic =  new int[]{3,2,1,1,3,2};

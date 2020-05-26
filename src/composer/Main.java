@@ -29,7 +29,7 @@ public class Main
 
         GeneticAlgorithm ga = new GeneticAlgorithm();
         Controller controller = new Controller(ga);
-        RuleSettings rs = new RuleSettings(controller);
+        //RuleSettings rs = new RuleSettings(controller);
         GUI gui = new GUI(controller);
         controller.setGUI(gui);
     }
