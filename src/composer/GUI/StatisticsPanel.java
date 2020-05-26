@@ -17,7 +17,7 @@ public class StatisticsPanel extends JPanel
 
         //setBorder(BorderFactory.createLineBorder(Color.black));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        title = new JLabel("Gneration Statistics");
+        title = new JLabel("Generation Statistics");
         add(title);
         //add(new JSeparator(SwingConstants.HORIZONTAL));
         genNum = new JLabel("Generation: " + controller.getGeneticAlgorithm().getGeneration().number());
