@@ -117,7 +117,12 @@ public class MusicPlayer
             {
                 return;
             }
-            File file = new File("savedPieces\\" + fileName + ".mid");
+            File dir = new File("savedPieces");
+            if(! dir.exists())
+            {
+                dir.mkdir();
+            }
+            File file = new File(dir + "\\" + fileName + ".mid");
 		    MidiSystem.write(sequence, 1, file);
         }
         catch(Exception e)
